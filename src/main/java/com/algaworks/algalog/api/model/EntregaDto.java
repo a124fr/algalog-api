@@ -13,8 +13,8 @@ import lombok.Setter;
 public class EntregaDto {
 	
 	private Long id;
-	private String nomeCliente;
-	private DestinatarioDto destinatarioDto;
+	private ClienteResumoDto cliente;
+	private DestinatarioDto destinatario;
 	private BigDecimal taxa;
 	private StatusEntrega status;
 	private OffsetDateTime dataPedido;

@@ -38,28 +38,19 @@ public class Entrega {
 	@EqualsAndHashCode.Include
 	private Long id;	
 	
-	@Valid
-	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)
-	@NotNull
 	@ManyToOne
 //	@JoinColumn(name = "id_cliente") // caso queira especificar o nome da cluna no lado do modelo relacional da tabela é criado a coluna cliente_id
 	private Cliente cliente;
 	
-	@Valid
-	@NotNull
 	@Embedded
 	private Destinatario destinatario;
 	
-	@NotNull
 	private BigDecimal taxa;
 	
-	@JsonProperty(access = Access.READ_ONLY)
 	@Enumerated(EnumType.STRING)
 	private StatusEntrega status;
 	
-	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataPedido;
 	
-	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataFinalizacao;	
 }

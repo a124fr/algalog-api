@@ -8,4 +8,8 @@ public class NegocioException extends RuntimeException {
 		super(mensagem);
 	}
 	
+	public NegocioException(String mensagem, Exception e) {
+		super(mensagem, e);
+	}
+	
 }
