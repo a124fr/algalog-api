@@ -11,4 +11,6 @@ import com.algaworks.algalog.domain.model.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
 	List<Cliente> findByNome(String nome);
+	
+	List<Cliente> findByNomeContaining(String nome); // usar o operador like do sql.
 }
