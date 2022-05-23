@@ -1,13 +1,11 @@
 package com.algaworks.algalog.api.controler;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algalog.domain.model.Cliente;
@@ -23,7 +21,22 @@ public class ClienteController {
 			
 	@GetMapping("/clientes")
 	public List<Cliente> listar() {			
-		return clienteRepository.findByNomeContaining("a");
+		return clienteRepository.findAll();
+	}
+	
+	@GetMapping("/clientes/{id}")
+	public ResponseEntity<Cliente> buscar(@PathVariable("id") Long clienteId) {		
+//		Optional<Cliente> cliente =  clienteRepository.findById(clienteId);		
+//		if (cliente.isPresent()) {
+//			return ResponseEntity.ok(cliente.get());
+//		}		
+//		return ResponseEntity.notFound().build();
+//		return clienteRepository.findById(clienteId)
+//				.map(cliente -> ResponseEntity.ok(cliente))
+//				.orElse(ResponseEntity.notFound().build());
+		return clienteRepository.findById(clienteId)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
 	
 }
