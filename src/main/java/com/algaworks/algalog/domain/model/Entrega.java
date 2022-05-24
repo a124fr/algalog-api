@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -43,7 +44,7 @@ public class Entrega {
 	
 	private BigDecimal taxa;
 	
-	@OneToMany(mappedBy = "entrega")
+	@OneToMany(mappedBy = "entrega", cascade = CascadeType.ALL)
 	private List<Ocorrencia> ocorrencias = new ArrayList<>();
 	
 	@Enumerated(EnumType.STRING)
@@ -51,5 +52,15 @@ public class Entrega {
 	
 	private OffsetDateTime dataPedido;
 	
-	private OffsetDateTime dataFinalizacao;	
+	private OffsetDateTime dataFinalizacao;
+
+	public Ocorrencia addcionarOcorrencia(String descricao) {
+		Ocorrencia ocorrencia = new Ocorrencia();
+		ocorrencia.setDescricao(descricao);
+		ocorrencia.setDataRegistro(OffsetDateTime.now());
+		ocorrencia.setEntrega(this);
+		
+		this.getOcorrencias().add(ocorrencia);
+		return ocorrencia;
+	}	
 }
