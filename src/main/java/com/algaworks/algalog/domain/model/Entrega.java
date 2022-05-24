@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.algaworks.algalog.domain.exception.NegocioException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -62,5 +63,21 @@ public class Entrega {
 		
 		this.getOcorrencias().add(ocorrencia);
 		return ocorrencia;
+	}
+
+	public void finalizar() {
+		if (naoPodeSerfinalizada()) {
+			throw new NegocioException("Entrega não pode ser finalizada");
+		}		
+		setStatus(StatusEntrega.FINALIZADA);
+		setDataFinalizacao(OffsetDateTime.now());
 	}	
+	
+	private boolean podeSerfinalizada() {
+		return StatusEntrega.PENDENTE.equals(getStatus());
+	}
+	
+	private boolean naoPodeSerfinalizada() {
+		return !podeSerfinalizada();
+	}
 }
